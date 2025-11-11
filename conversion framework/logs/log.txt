@@ -1,0 +1,2 @@
+[2024-11-24 15:29:35,923][utils.py][line:83][INFO] Logger initialized
+[2024-11-24 15:29:35,924][utils.py][line:84][INFO] Log file path: logs/log.txt

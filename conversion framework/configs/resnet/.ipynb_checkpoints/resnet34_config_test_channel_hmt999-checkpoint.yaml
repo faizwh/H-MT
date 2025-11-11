@@ -1,0 +1,78 @@
+# Model configuration
+# this is the basic changed version towards HMT
+# using pos_HMT to replace relu 
+model_name: resnet34            # Model class name
+# load_name: "./output/threshold_resnet18.pth"
+# load_name: "./output/threshold_resnet18_neuron.pth"
+load_name: "./output/threshold_resnet34_channel_999.pth"
+# load_name: "./output/threshold_resnet18_channel_999.pth"
+# load_name: "./output/threshold_resnet18_channel.pth"
+
+# load_name: "./output/threshold_resnet18_neuron_999.pth"
+# load_name: "./output/threshold_resnet18_999.pth"
+
+# load_name: "checkpoint.pth"
+# model_name: resnet34            # Model class name
+# load_name: "../models/qe-conversion/resnet34/resnet34_imagenet.pth"
+# model_name: vgg16_bn
+# load_name: "../models/qe-conversion/vgg16/vgg16_bn_imagenet.pth"
+
+# mode: test_ann
+mode: test_snn                  # Operation mode: test_ann, get_threshold, test_snn, train_snn
+sop: True
+save_name: xxx           # Name for saving the model
+
+# Threshold configuration
+# threshold_mode: "99.9%"         # Threshold mode for SNN neurons
+threshold_mode: "99.9%"          # Threshold mode for SNN neurons
+# threshold_level: "neuron"
+# threshold_level: "channel"
+# threshold_level: "layer"
+fx: False
+
+# Neuron configuration
+neuron_name: pos_H_MT_version_1        # Neuron model: IF, IF_with_neg, LIF, MTH
+# neuron_name: MTH_with_neg        # Neuron model: IF, IF_with_neg, LIF, MTH
+num_thresholds : 1
+step_mode: 'm'
+coding_type: rate               # Coding type: rate or leaky_rate or diff
+# coding_type: rate               # Coding type: rate or leaky_rate or diff
+fuse: False
+
+# Task configuration
+task: classification            # Task type: classification or others
+
+# Dataset configuration
+dataset: imagenet               # Dataset name
+dataset_path: "../data"         # Path to the dataset
+batchsize: 50                  # Batch size for training or testing
+
+# Device configuration
+device: "0"                     # CUDA device ID (e.g., 0 for single GPU)
+distributed: false              # Enable distributed training (true or false)
+
+# Logger configuration
+logger: false                    # Enable logging
+logger_path: "logs/log.txt"     # Path to save logs
+
+# Training and Testing configuration
+seed: 2024                      # Random seed for reproducibility
+#time: 2 # 70.678
+#time: 4 # 71.91
+#time: 8 # 72.584
+#time: 16 #72.85                       # SNN simulation time (0 for default behavior)
+time: 64
+
+#实测 num_thresholds : 4
+#批次： 999  最终准确率： 72.85
+#平均准确率: 69.236, 70.702, 71.43, 71.914, 72.25, 72.34, 72.472, 72.584, 72.604, 72.69, 72.724, 72.742, 72.768, 72.794, 72.828, 72.85
+#瞬时发射率: 0.4113, 0.3914, 0.388, 0.3869, 0.3863, 0.3862, 0.3861, 0.3862, 0.3861, 0.3862, 0.3862, 0.3862, 0.3862, 0.3863, 0.3863, 0.3863
+#平均发射率: 0.4113, 0.4013, 0.3969, 0.3944, 0.3928, 0.3917, 0.3909, 0.3903, 0.3898, 0.3895, 0.3892, 0.3889, 0.3887, 0.3885, 0.3884, 0.3883
+#总能耗: 0.0805, 0.157, 0.233, 0.3087, 0.3842, 0.4598, 0.5354, 0.6109, 0.6865, 0.762, 0.8376, 0.9132, 0.9887, 1.0643, 1.1399, 1.2154
+
+#实测 num_thresholds : 3
+#批次： 999  最终准确率： 71.41
+#平均准确率: 50.904, 57.566, 61.572, 64.07, 65.934, 67.206, 68.188, 68.856, 69.436, 69.848, 70.288, 70.566, 70.856, 71.08, 71.258, 71.41
+#瞬时发射率: 0.3738, 0.3431, 0.3381, 0.3366, 0.3363, 0.3362, 0.3362, 0.3362, 0.3361, 0.3363, 0.3363, 0.3364, 0.3365, 0.3365, 0.3366, 0.3366
+#平均发射率: 0.3738, 0.3584, 0.3517, 0.3479, 0.3456, 0.344, 0.3429, 0.342, 0.3414, 0.3409, 0.3405, 0.3401, 0.3398, 0.3396, 0.3394, 0.3392
+#总能耗: 0.0731, 0.1403, 0.2064, 0.2723, 0.3381, 0.4038, 0.4696, 0.5354, 0.6011, 0.6669, 0.7327, 0.7986, 0.8644, 0.9302, 0.9961, 1.0619
